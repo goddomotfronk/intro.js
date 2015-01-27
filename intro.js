@@ -455,6 +455,9 @@
     }
 
     tooltipLayer.className = ('introjs-tooltip ' + tooltipCssClass).replace(/^\s+|\s+$/g, '');
+    if (currentStepObj.position) {
+      tooltipLayer.className = tooltipLayer.className + ' ' + currentStepObj.position;
+    }
 
     //custom css class for tooltip boxes
     var tooltipCssClass = this._options.tooltipClass;
