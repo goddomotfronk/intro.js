@@ -895,11 +895,7 @@
       skipTooltipButton.innerHTML = this._options.skipLabel;
 
       skipTooltipButton.onclick = function() {
-        if (self._introItems.length - 1 == self._currentStep && typeof (self._introCompleteCallback) === 'function') {
-          self._introCompleteCallback.call(self);
-        }
-
-        if (self._introItems.length - 1 != self._currentStep && typeof (self._introExitCallback) === 'function') {
+        if (typeof (self._introExitCallback) === 'function') {
           self._introExitCallback.call(self);
         }
 
