@@ -777,6 +777,8 @@
           referenceLayer    = document.createElement('div'),
           arrowLayer        = document.createElement('div'),
           tooltipLayer      = document.createElement('div'),
+          innerLayer        = document.createElement('div'),
+          bottomLayer       = document.createElement('div'),
           tooltipTextLayer  = document.createElement('div'),
           bulletsLayer      = document.createElement('div'),
           progressLayer     = document.createElement('div'),
@@ -794,6 +796,7 @@
       this._targetElement.appendChild(referenceLayer);
 
       arrowLayer.className = 'introjs-arrow';
+      arrowLayer.innerHTML = this._options.arrowLabel;
 
       tooltipTextLayer.className = 'introjs-tooltiptext';
       tooltipTextLayer.innerHTML = targetElement.intro;
@@ -844,9 +847,11 @@
       }
 
       tooltipLayer.className = 'introjs-tooltip';
-      tooltipLayer.appendChild(tooltipTextLayer);
-      tooltipLayer.appendChild(bulletsLayer);
-      tooltipLayer.appendChild(progressLayer);
+      innerLayer.className = 'introjs-tooltip-inner';
+      bottomLayer.className = 'introjs-tooltip-bottom';
+
+      innerLayer.appendChild(tooltipTextLayer);
+      innerLayer.appendChild(progressLayer);
 
       //add helper layer number
       if (this._options.showStepNumbers == true) {
@@ -856,7 +861,7 @@
         referenceLayer.appendChild(helperNumberLayer);
       }
 
-      tooltipLayer.appendChild(arrowLayer);
+      innerLayer.appendChild(arrowLayer);
       referenceLayer.appendChild(tooltipLayer);
 
       //next button
@@ -901,7 +906,7 @@
         _exitIntro.call(self, self._targetElement);
       };
 
-      buttonsLayer.appendChild(skipTooltipButton);
+      tooltipLayer.appendChild(skipTooltipButton);
 
       //in order to prevent displaying next/previous button always
       if (this._introItems.length > 1) {
@@ -909,7 +914,8 @@
         buttonsLayer.appendChild(nextTooltipButton);
       }
 
-      tooltipLayer.appendChild(buttonsLayer);
+      innerLayer.appendChild(bottomLayer);
+      tooltipLayer.appendChild(innerLayer);
 
       //set proper position
       _placeTooltip.call(self, targetElement.element, tooltipLayer, arrowLayer, helperNumberLayer);
