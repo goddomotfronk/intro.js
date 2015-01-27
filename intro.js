@@ -908,11 +908,10 @@
 
       tooltipLayer.appendChild(skipTooltipButton);
 
-      //in order to prevent displaying next/previous button always
-      if (this._introItems.length > 1) {
-        buttonsLayer.appendChild(prevTooltipButton);
-        buttonsLayer.appendChild(nextTooltipButton);
-      }
+      //next/previous buttons + bullets
+      bottomLayer.appendChild(prevTooltipButton);
+      bottomLayer.appendChild(bulletsLayer);
+      bottomLayer.appendChild(nextTooltipButton);
 
       innerLayer.appendChild(bottomLayer);
       tooltipLayer.appendChild(innerLayer);
@@ -922,8 +921,14 @@
     }
 
     //disable interaction
-    if (this._options.disableInteraction === true) {
+    targetElement.disableInteraction = (targetElement.disableInteraction === undefined) ? true : targetElement.disableInteraction;
+    if (targetElement.disableInteraction === true) {
       _disableInteraction.call(self);
+    } else if (targetElement.disableInteraction === false) {
+      var disableInteractionLayer = document.querySelector('.introjs-disableInteraction');
+      if (disableInteractionLayer) {
+        disableInteractionLayer.parentNode.removeChild(disableInteractionLayer);
+      }
     }
 
     prevTooltipButton.removeAttribute('tabIndex');
